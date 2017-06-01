@@ -27,17 +27,19 @@ class App extends Component {
   };
 
   handleSubmit = event => {
+    console.log(event);
     event.preventDefault();
-    const id = this.state.todos.length - 1;
+    const id = this.state.todos.length + 1;
     this.setState({
       todos: [
         ...this.state.todos,
         {
           id,
-          name: event.target.value,
+          name: this.state.currentTodo,
           isComplete: false,
         },
       ],
+      currentTodo: '',
     });
   };
 
@@ -47,7 +49,7 @@ class App extends Component {
         <TodoContainer {...this.state} handleToggle={this.handleToggle} />
         <NewTodo
           handleInputChange={this.handleInputChange}
-          currentTodo={this.currentTodo}
+          currentTodo={this.state.currentTodo}
           handleSubmit={this.handleSubmit}
         />
       </div>
