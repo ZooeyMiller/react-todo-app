@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import TodoContainer from './components/TodoContainer';
+import NewTodo from './components/NewTodo.js';
 import {
   getTodo,
   toggleChecked,
@@ -19,10 +20,36 @@ class App extends Component {
     this.setState(todoList);
   };
 
+  handleInputChange = event => {
+    this.setState({
+      currentTodo: event.target.value,
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const id = this.state.todos.length - 1;
+    this.setState({
+      todos: [
+        ...this.state.todos,
+        {
+          id,
+          name: event.target.value,
+          isComplete: false,
+        },
+      ],
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <TodoContainer {...this.state} handleToggle={this.handleToggle} />
+        <NewTodo
+          handleInputChange={this.handleInputChange}
+          currentTodo={this.currentTodo}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     );
   }

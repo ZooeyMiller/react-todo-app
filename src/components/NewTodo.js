@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 
-export default class newTodo extends Component {
+export default class NewTodo extends Component {
   render() {
     return (
-      <form className="new-todo-form">
-        <input type="text" className="new-todo-form--input" />
+      <form className="new-todo-form" onSubmit={this.props.handleSubmit}>
+        <input
+          type="text"
+          className="new-todo-form--input"
+          value={this.props.currentTodo}
+          onChange={this.props.handleInputChange}
+        />
       </form>
     );
   }
