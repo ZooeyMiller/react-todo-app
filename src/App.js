@@ -7,26 +7,9 @@ import {
   toggleChecked,
   returnUpdatedTodos,
 } from './utils/handleToggle';
+import defaultState from './defaultState';
 class App extends Component {
-  state = {
-    todos: [
-      {
-        id: 1,
-        name: 'do the thing',
-        isComplete: false,
-      },
-      {
-        id: 2,
-        name: 'do the second thing',
-        isComplete: false,
-      },
-      {
-        id: 3,
-        name: 'do the third thing',
-        isComplete: false,
-      },
-    ],
-  };
+  state = defaultState;
 
   handleToggle = id => {
     const todos = this.state.todos;
