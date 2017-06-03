@@ -13,6 +13,7 @@ export default class TodoContainer extends Component {
               key={todo.id}
               id={todo.id}
               handleToggle={this.props.handleToggle}
+              removeTodo={this.props.removeTodo}
             />
           );
         })}

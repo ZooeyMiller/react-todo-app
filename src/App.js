@@ -43,10 +43,24 @@ class App extends Component {
     });
   };
 
+  removeTodo = id => {
+    const removedTodoIndex = this.state.todos.findIndex(todo => todo.id === id);
+    this.setState({
+      todos: [
+        ...this.state.todos.slice(0, removedTodoIndex),
+        ...this.state.todos.slice(removedTodoIndex + 1),
+      ],
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <TodoContainer {...this.state} handleToggle={this.handleToggle} />
+        <TodoContainer
+          {...this.state}
+          handleToggle={this.handleToggle}
+          removeTodo={this.removeTodo}
+        />
         <NewTodo
           handleInputChange={this.handleInputChange}
           currentTodo={this.state.currentTodo}
