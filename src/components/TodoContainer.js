@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import Todo from './Todo.js';
+import styled from 'styled-components';
+
+const List = styled.ul`
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+padding: 0;
+`;
 
 export default class TodoContainer extends Component {
   render() {
     return (
-      <ul className="Todo-list">
+      <List className="Todo-list">
         {this.props.todos.map(todo => {
           return (
             <Todo
@@ -17,7 +26,7 @@ export default class TodoContainer extends Component {
             />
           );
         })}
-      </ul>
+      </List>
     );
   }
 }

@@ -2,13 +2,23 @@ import React, { Component } from 'react';
 import './App.css';
 import TodoContainer from './components/TodoContainer';
 import NewTodo from './components/NewTodo.js';
+import Spinner from './components/Spinner.js';
 import {
   getTodo,
   toggleChecked,
   returnUpdatedTodos,
 } from './utils/handleToggle';
 
+import styled from 'styled-components';
+
 const serverUrl = 'http://localhost:5000';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 class App extends Component {
   state = {
@@ -96,8 +106,8 @@ class App extends Component {
     return (
       <div className="App">
         {this.state.loading
-          ? <h1>Loading...</h1>
-          : <div>
+          ? <Spinner />
+          : <Container>
               <TodoContainer
                 {...this.state}
                 handleToggle={this.handleToggle}
@@ -108,7 +118,7 @@ class App extends Component {
                 currentTodo={this.state.currentTodo}
                 handleSubmit={this.handleSubmit}
               />
-            </div>}
+            </Container>}
 
       </div>
     );
