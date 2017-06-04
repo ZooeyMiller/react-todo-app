@@ -23,7 +23,11 @@ class App extends Component {
       })
       .then(json => {
         this.setState({
-          todos: [...json.rows],
+          todos: json.rows.map(todo => ({
+            name: todo.name,
+            id: todo.id,
+            isComplete: todo.checked,
+          })),
           loading: false,
         });
       })
