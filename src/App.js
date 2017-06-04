@@ -9,8 +9,32 @@ import {
   returnUpdatedTodos,
 } from './utils/handleToggle';
 import defaultState from './defaultState';
+
+const serverUrl = 'http://localhost:5000';
+
 class App extends Component {
-  state = defaultState;
+  state = {
+    loading: true,
+  };
+
+  componentDidMount = () => {
+    fetch(`${serverUrl}/get-todos`)
+      .then(res => {
+        return res.json();
+      })
+      .then(json => {
+        this.setState({
+          todos: [...json.rows],
+          loading: false,
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({
+          error: 'something went wrong',
+        });
+      });
+  };
 
   handleToggle = id => {
     const todos = this.state.todos;
@@ -56,16 +80,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TodoContainer
-          {...this.state}
-          handleToggle={this.handleToggle}
-          removeTodo={this.removeTodo}
-        />
-        <NewTodo
-          handleInputChange={this.handleInputChange}
-          currentTodo={this.state.currentTodo}
-          handleSubmit={this.handleSubmit}
-        />
+        {this.state.loading
+          ? <h1>Loading...</h1>
+          : <div>
+              <TodoContainer
+                {...this.state}
+                handleToggle={this.handleToggle}
+                removeTodo={this.removeTodo}
+              />
+              <NewTodo
+                handleInputChange={this.handleInputChange}
+                currentTodo={this.state.currentTodo}
+                handleSubmit={this.handleSubmit}
+              />
+            </div>}
+
       </div>
     );
   }

@@ -15,7 +15,12 @@ export default class Todo extends Component {
         checked={this.props.checked}
         onClick={() => this.props.handleToggle(this.props.id)}
       >
-        <input type="checkbox" checked={this.props.checked} />
+
+        <input
+          type="checkbox"
+          checked={this.props.checked ? true : false}
+          onChange={() => this.props.handleToggle(this.props.id)}
+        />
 
         {this.props.name}
         <button

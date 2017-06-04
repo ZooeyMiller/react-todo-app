@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "env2": "^2.2.0",
+    "nodemon": "^1.11.0",
+    "pg": "^6.2.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "styled-components": "^2.0.0",
@@ -15,6 +18,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "runServer": "nodemon server/server.js",
+    "startAll": "nodemon server/server.js && psql && react-scripts start"
   }
 }
