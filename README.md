@@ -9,7 +9,7 @@ Also a nice way to practice my CSS.
 
 ## How?
 _Exactly_ like this.
-React, vanilla node server, postgreSQL database
+React,<del>vanilla node</del> hapi server, postgreSQL database
 
 ## How do I run it locally
 1. run ```psql``` and make a database called whatever you want (I chose todo_app)
