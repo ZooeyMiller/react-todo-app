@@ -1,10 +1,25 @@
-const http = require('http');
+// const http = require('http');
+// const router = require('./router.js');
+//
+// const port = 5000;
+//
+// const server = http.createServer(router);
+//
+// server.listen(port);
+//
+// console.log(`server listening on ${port}`);
+
+const hapi = require('hapi');
+
 const router = require('./router.js');
 
-const port = 5000;
+const server = new hapi.Server();
 
-const server = http.createServer(router);
+server.connection({ port: 5000, host: 'localhost' });
 
-server.listen(port);
+server.route(router);
 
-console.log(`server listening on ${port}`);
+server.start(err => {
+  if (err) throw err;
+  console.log(`Server running at: ${server.info.uri}`);
+});

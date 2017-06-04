@@ -9,9 +9,10 @@ Also a nice way to practice my CSS.
 
 ## How?
 _Exactly_ like this.
+React, vanilla node server, postgreSQL database
 
 ## How do I run it locally
-1. run psql and make a database called whatever you want (I chose todo_app)
+1. run ```psql``` and make a database called whatever you want (I chose todo_app)
 2. make a file in the root of the project called .config.env
   * add 'DB_URL=```your psql pword```:```your psql username```@127.0.0.1/```whatever you called the db```'
 3. run ```node database/db_build.js``` in another terminal window

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import TodoContainer from './components/TodoContainer';
 import NewTodo from './components/NewTodo.js';
@@ -8,13 +7,13 @@ import {
   toggleChecked,
   returnUpdatedTodos,
 } from './utils/handleToggle';
-import defaultState from './defaultState';
 
 const serverUrl = 'http://localhost:5000';
 
 class App extends Component {
   state = {
     loading: true,
+    currentTodo: '',
   };
 
   componentDidMount = () => {
@@ -51,20 +50,21 @@ class App extends Component {
   };
 
   handleSubmit = event => {
-    console.log(event);
     event.preventDefault();
-    const id = this.state.todos.length + 1;
-    this.setState({
-      todos: [
-        ...this.state.todos,
-        {
-          id,
-          name: this.state.currentTodo,
-          isComplete: false,
-        },
-      ],
-      currentTodo: '',
-    });
+    fetch(`${serverUrl}/add-todo`, {
+      method: 'POST',
+      body: JSON.stringify({
+        todo: JSON.stringify(this.state.currentTodo),
+      }),
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          todos: [...this.state.todos, json],
+          currentTodo: '',
+        });
+      })
+      .catch(console.log);
   };
 
   removeTodo = id => {
