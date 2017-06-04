@@ -63,7 +63,7 @@ class App extends Component {
     fetch(`${serverUrl}/add-todo`, {
       method: 'POST',
       body: JSON.stringify({
-        todo: JSON.stringify(this.state.currentTodo),
+        todo: this.state.currentTodo,
       }),
     })
       .then(res => res.json())
@@ -78,6 +78,12 @@ class App extends Component {
 
   removeTodo = id => {
     const removedTodoIndex = this.state.todos.findIndex(todo => todo.id === id);
+    fetch(`${serverUrl}/delete-todo`, {
+      method: 'POST',
+      body: JSON.stringify({
+        id,
+      }),
+    });
     this.setState({
       todos: [
         ...this.state.todos.slice(0, removedTodoIndex),

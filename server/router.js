@@ -1,4 +1,9 @@
-const { getTodos, addTodo, toggleChecked } = require('./handlers.js');
+const {
+  getTodos,
+  addTodo,
+  toggleChecked,
+  deleteTodo,
+} = require('./handlers.js');
 
 const sendTodos = {
   method: 'GET',
@@ -36,4 +41,16 @@ const toggleTodo = {
   },
 };
 
-module.exports = [sendTodos, postTodo, toggleTodo];
+const removeTodo = {
+  method: 'POST',
+  path: '/delete-todo',
+  handler: deleteTodo,
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
+};
+
+module.exports = [sendTodos, postTodo, toggleTodo, removeTodo];
