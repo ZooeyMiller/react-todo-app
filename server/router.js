@@ -1,4 +1,4 @@
-const { getTodos, addTodo } = require('./handlers.js');
+const { getTodos, addTodo, toggleChecked } = require('./handlers.js');
 
 const sendTodos = {
   method: 'GET',
@@ -24,4 +24,16 @@ const postTodo = {
   },
 };
 
-module.exports = [sendTodos, postTodo];
+const toggleTodo = {
+  method: 'POST',
+  path: '/toggle-todo',
+  handler: toggleChecked,
+  config: {
+    cors: {
+      origin: ['*'],
+      additionalHeaders: ['cache-control', 'x-requested-with'],
+    },
+  },
+};
+
+module.exports = [sendTodos, postTodo, toggleTodo];

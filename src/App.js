@@ -44,7 +44,12 @@ class App extends Component {
     const todo = getTodo(todos, id);
     const updatedTodo = toggleChecked(todo);
     const todoList = returnUpdatedTodos(todos, updatedTodo, todo);
-    this.setState(todoList);
+    fetch(`${serverUrl}/toggle-todo`, {
+      method: 'POST',
+      body: JSON.stringify({
+        todo: updatedTodo,
+      }),
+    }).then(() => this.setState(todoList));
   };
 
   handleInputChange = event => {
