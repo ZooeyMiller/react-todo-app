@@ -40,7 +40,9 @@ const toggleChecked = (req, reply) => {
   const payload = JSON.parse(req.payload);
   const todo = payload.todo;
   dbConnection.query(
-    `UPDATE todos SET checked = ${todo.isComplete ? 'TRUE' : 'FALSE'} WHERE id = '${todo.id}';`,
+    `UPDATE todos SET checked = ${todo.isComplete
+      ? 'TRUE'
+      : 'FALSE'} WHERE id = '${todo.id}';`,
     (err, res) => {
       if (err) {
         console.log(err);

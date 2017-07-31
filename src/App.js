@@ -3,6 +3,7 @@ import './App.css';
 import TodoContainer from './components/TodoContainer';
 import NewTodo from './components/NewTodo.js';
 import Spinner from './components/Spinner.js';
+import ErrorMessage from './components/ErrorMessage.js';
 import {
   getTodo,
   toggleChecked,
@@ -28,9 +29,7 @@ class App extends Component {
 
   componentDidMount = () => {
     fetch(`${serverUrl}/get-todos`)
-      .then(res => {
-        return res.json();
-      })
+      .then(res => res.json())
       .then(json => {
         this.setState({
           todos: json.rows.map(todo => ({
@@ -48,18 +47,32 @@ class App extends Component {
         });
       });
   };
+  handleError = errorMessage => {
+    this.setState({
+      error: errorMessage,
+    });
+    setTimeout(() => {
+      this.setState({
+        error: '',
+      });
+    }, 3000);
+  };
 
   handleToggle = id => {
     const todos = this.state.todos;
     const todo = getTodo(todos, id);
-    const updatedTodo = toggleChecked(todo);
-    const todoList = returnUpdatedTodos(todos, updatedTodo, todo);
-    fetch(`${serverUrl}/toggle-todo`, {
-      method: 'POST',
-      body: JSON.stringify({
-        todo: updatedTodo,
-      }),
-    }).then(() => this.setState(todoList));
+    if (todo) {
+      const updatedTodo = toggleChecked(todo);
+      const todoList = returnUpdatedTodos(todos, updatedTodo, todo);
+      fetch(`${serverUrl}/toggle-todo`, {
+        method: 'POST',
+        body: JSON.stringify({
+          todo: updatedTodo,
+        }),
+      }).then(() => this.setState(todoList));
+    } else {
+      this.handleError('problem toggling todo');
+    }
   };
 
   handleInputChange = event => {
@@ -83,7 +96,7 @@ class App extends Component {
           currentTodo: '',
         });
       })
-      .catch(console.log);
+      .catch(() => this.handleError('problem submitting todo'));
   };
 
   removeTodo = id => {
@@ -119,7 +132,7 @@ class App extends Component {
                 handleSubmit={this.handleSubmit}
               />
             </Container>}
-
+        {this.state.error && <ErrorMessage message={this.state.error} />}
       </div>
     );
   }
