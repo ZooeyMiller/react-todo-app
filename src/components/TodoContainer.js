@@ -3,17 +3,18 @@ import Todo from './Todo.js';
 import styled from 'styled-components';
 
 const List = styled.ul`
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-padding: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: #d9d9d9;
+  overflow-y: scroll;
+  width: 90%;
 `;
 
 export default class TodoContainer extends Component {
   render() {
     return (
-      <List className="Todo-list">
+      <List>
         {this.props.todos.map(todo => {
           return (
             <Todo

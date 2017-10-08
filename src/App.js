@@ -19,6 +19,23 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
+`;
+
+const Header = styled.div`
+  min-height: 5em;
+  background-color: #861388;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  align-self: flex-start;
+`;
+
+const Title = styled.h1`
+  color: white;
+  margin: 0 0 0 1em;
+  font-size: 3em;
 `;
 
 class App extends Component {
@@ -83,20 +100,25 @@ class App extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    fetch(`${serverUrl}/add-todo`, {
-      method: 'POST',
-      body: JSON.stringify({
-        todo: this.state.currentTodo,
-      }),
-    })
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          todos: [...this.state.todos, json],
-          currentTodo: '',
-        });
+    if (this.state.currentTodo !== '') {
+      fetch(`${serverUrl}/add-todo`, {
+        method: 'POST',
+        body: JSON.stringify({
+          todo: this.state.currentTodo,
+        }),
       })
-      .catch(() => this.handleError('problem submitting todo'));
+        .then(res => res.json())
+        .then(json => {
+          this.setState({
+            todos: [...this.state.todos, json],
+            currentTodo: '',
+            error: '',
+          });
+        })
+        .catch(() => this.handleError('problem submitting todo'));
+    } else {
+      this.handleError('no empty todos!');
+    }
   };
 
   removeTodo = id => {
@@ -117,10 +139,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        {this.state.loading
-          ? <Spinner />
-          : <Container>
+      <div>
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <div>
+            <Container>
+              <Header>
+                <Title>todo</Title>
+              </Header>
               <TodoContainer
                 {...this.state}
                 handleToggle={this.handleToggle}
@@ -131,7 +158,9 @@ class App extends Component {
                 currentTodo={this.state.currentTodo}
                 handleSubmit={this.handleSubmit}
               />
-            </Container>}
+            </Container>
+          </div>
+        )}
         {this.state.error && <ErrorMessage message={this.state.error} />}
       </div>
     );

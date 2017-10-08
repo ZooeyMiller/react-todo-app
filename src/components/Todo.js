@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 const TodoItem = styled.li`
   background-color: ${props => (props.checked ? 'green' : 'red')};
-  font-family: monospace;
   cursor: pointer;
   transition: all 1s ease-in-out;
   margin: 0.5em;
   padding: 0.5em;
   list-style: none;
+  width: 85%;
 `;
 
 export default class Todo extends Component {
@@ -19,7 +19,6 @@ export default class Todo extends Component {
         checked={this.props.checked}
         onClick={() => this.props.handleToggle(this.props.id)}
       >
-
         <input
           type="checkbox"
           checked={this.props.checked}
