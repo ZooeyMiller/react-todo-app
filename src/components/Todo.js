@@ -15,7 +15,6 @@ export default class Todo extends Component {
   render() {
     return (
       <TodoItem
-        className="Todo"
         checked={this.props.checked}
         onClick={() => this.props.handleToggle(this.props.id)}
       >
@@ -27,7 +26,6 @@ export default class Todo extends Component {
 
         {this.props.name}
         <button
-          className="Todo--remove"
           onClick={event => {
             event.stopPropagation();
             this.props.removeTodo(this.props.id);

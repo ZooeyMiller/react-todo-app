@@ -19,7 +19,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: calc(${window.innerHeight}px - 5em);
+  justify-content: center;
 `;
 
 const Header = styled.div`
@@ -42,6 +43,7 @@ class App extends Component {
   state = {
     loading: true,
     currentTodo: '',
+    screenHeight: window.innerHeight,
   };
 
   componentDidMount = () => {
@@ -63,6 +65,11 @@ class App extends Component {
           error: 'something went wrong',
         });
       });
+    window.addEventListener('resize', () => {
+      this.setState({
+        screenHeight: window.innerHeight,
+      });
+    });
   };
   handleError = errorMessage => {
     this.setState({
@@ -144,10 +151,10 @@ class App extends Component {
           <Spinner />
         ) : (
           <div>
+            <Header>
+              <Title>todo</Title>
+            </Header>
             <Container>
-              <Header>
-                <Title>todo</Title>
-              </Header>
               <TodoContainer
                 {...this.state}
                 handleToggle={this.handleToggle}

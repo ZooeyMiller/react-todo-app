@@ -9,12 +9,14 @@ const List = styled.ul`
   background-color: #d9d9d9;
   overflow-y: scroll;
   width: 90%;
+  flex-grow: 0;
+  height: ${props => props.screenHeight / 3 * 2}px;
+  margin: 1.5em 0 0 0;
 `;
-
 export default class TodoContainer extends Component {
   render() {
     return (
-      <List>
+      <List screenHeight={this.props.screenHeight}>
         {this.props.todos.map(todo => {
           return (
             <Todo

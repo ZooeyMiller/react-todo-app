@@ -8,6 +8,7 @@ const TodoForm = styled.form`
 `;
 
 const TodoInput = styled.input`
+  margin-top: 1em;
   margin-bottom: 0.5em;
   font-size: 1.5em;
   font-family: ubuntu, helvetica, sans-serif;
@@ -20,6 +21,8 @@ const TodoButton = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
+  margin-bottom: 0.25em;
+  padding: 0.25em 0 0.5em 0;
 `;
 
 export default class NewTodo extends Component {
