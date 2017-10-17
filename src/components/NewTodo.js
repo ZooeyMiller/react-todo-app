@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const TodoForm = styled.form`
@@ -8,7 +8,7 @@ const TodoForm = styled.form`
 `;
 
 const TodoInput = styled.input`
-  margin-top: 1em;
+  margin-top: 0.25em;
   margin-bottom: 0.5em;
   font-size: 1.5em;
   font-family: ubuntu, helvetica, sans-serif;
@@ -25,17 +25,15 @@ const TodoButton = styled.button`
   padding: 0.25em 0 0.5em 0;
 `;
 
-export default class NewTodo extends Component {
-  render() {
-    return (
-      <TodoForm onSubmit={this.props.handleSubmit}>
-        <TodoInput
-          type="text"
-          value={this.props.currentTodo}
-          onChange={this.props.handleInputChange}
-        />
-        <TodoButton>Add todo</TodoButton>
-      </TodoForm>
-    );
-  }
-}
+export default props => {
+  return (
+    <TodoForm onSubmit={props.handleSubmit}>
+      <TodoInput
+        type="text"
+        value={props.currentTodo}
+        onChange={props.handleInputChange}
+      />
+      <TodoButton>Add todo</TodoButton>
+    </TodoForm>
+  );
+};

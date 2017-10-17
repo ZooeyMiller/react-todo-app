@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Todo from './Todo.js';
 import styled from 'styled-components';
+import { filterTodos } from '../utils/handleFilter';
 
 const List = styled.ul`
   display: flex;
@@ -13,23 +14,22 @@ const List = styled.ul`
   height: ${props => props.screenHeight / 3 * 2}px;
   margin: 1.5em 0 0 0;
 `;
-export default class TodoContainer extends Component {
-  render() {
-    return (
-      <List screenHeight={this.props.screenHeight}>
-        {this.props.todos.map(todo => {
-          return (
-            <Todo
-              checked={todo.isComplete}
-              name={todo.name}
-              key={todo.id}
-              id={todo.id}
-              handleToggle={this.props.handleToggle}
-              removeTodo={this.props.removeTodo}
-            />
-          );
-        })}
-      </List>
-    );
-  }
-}
+export default props => {
+  const todos = filterTodos(props.todos, props.criteria);
+  return (
+    <List screenHeight={props.screenHeight}>
+      {todos.map(todo => {
+        return (
+          <Todo
+            checked={todo.isComplete}
+            name={todo.name}
+            key={todo.id}
+            id={todo.id}
+            handleToggle={props.handleToggle}
+            removeTodo={props.removeTodo}
+          />
+        );
+      })}
+    </List>
+  );
+};

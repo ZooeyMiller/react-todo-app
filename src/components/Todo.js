@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const TodoItem = styled.li`
@@ -11,29 +11,27 @@ const TodoItem = styled.li`
   width: 85%;
 `;
 
-export default class Todo extends Component {
-  render() {
-    return (
-      <TodoItem
-        checked={this.props.checked}
-        onClick={() => this.props.handleToggle(this.props.id)}
-      >
-        <input
-          type="checkbox"
-          checked={this.props.checked}
-          onChange={() => this.props.handleToggle(this.props.id)}
-        />
+export default props => {
+  return (
+    <TodoItem
+      checked={props.checked}
+      onClick={() => props.handleToggle(props.id)}
+    >
+      <input
+        type="checkbox"
+        checked={props.checked}
+        onChange={() => props.handleToggle(props.id)}
+      />
 
-        {this.props.name}
-        <button
-          onClick={event => {
-            event.stopPropagation();
-            this.props.removeTodo(this.props.id);
-          }}
-        >
-          X
-        </button>
-      </TodoItem>
-    );
-  }
-}
+      {props.name}
+      <button
+        onClick={event => {
+          event.stopPropagation();
+          props.removeTodo(props.id);
+        }}
+      >
+        X
+      </button>
+    </TodoItem>
+  );
+};

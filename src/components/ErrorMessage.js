@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const Error = styled.div`
@@ -9,12 +9,6 @@ const Error = styled.div`
   transform: translateX(50%);
 `;
 
-export default class ErrorMessage extends Component {
-  render() {
-    return (
-      <Error>
-        {this.props.message}
-      </Error>
-    );
-  }
-}
+export default props => {
+  return <Error>{props.message}</Error>;
+};

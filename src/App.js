@@ -4,6 +4,7 @@ import TodoContainer from './components/TodoContainer';
 import NewTodo from './components/NewTodo.js';
 import Spinner from './components/Spinner.js';
 import ErrorMessage from './components/ErrorMessage.js';
+import FilterButtons from './components/FilterButtons.js';
 import {
   getTodo,
   toggleChecked,
@@ -44,6 +45,7 @@ class App extends Component {
     loading: true,
     currentTodo: '',
     screenHeight: window.innerHeight,
+    criteria: 'ALL',
   };
 
   componentDidMount = () => {
@@ -71,6 +73,7 @@ class App extends Component {
       });
     });
   };
+
   handleError = errorMessage => {
     this.setState({
       error: errorMessage,
@@ -144,6 +147,12 @@ class App extends Component {
     });
   };
 
+  setFilter = criteria => {
+    this.setState({
+      criteria,
+    });
+  };
+
   render() {
     return (
       <div>
@@ -159,6 +168,10 @@ class App extends Component {
                 {...this.state}
                 handleToggle={this.handleToggle}
                 removeTodo={this.removeTodo}
+              />
+              <FilterButtons
+                setFilter={this.setFilter}
+                criteria={this.state.criteria}
               />
               <NewTodo
                 handleInputChange={this.handleInputChange}
