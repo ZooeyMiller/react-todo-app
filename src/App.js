@@ -20,8 +20,15 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(${window.innerHeight}px - 5em);
+  height: calc(
+    ${props => (props.screenHeight > 568 ? props.screenHeight : 568)}px - 5em
+  );
   justify-content: center;
+
+  @media (min-width: 600px) {
+    width: 600px;
+    margin: 0 auto;
+  }
 `;
 
 const Header = styled.div`
@@ -163,7 +170,7 @@ class App extends Component {
             <Header>
               <Title>todo</Title>
             </Header>
-            <Container>
+            <Container screenHeight={this.state.screenHeight}>
               <TodoContainer
                 {...this.state}
                 handleToggle={this.handleToggle}
