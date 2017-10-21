@@ -1,8 +1,14 @@
-export const completedOnly = todos => todos.filter(todo => todo.isComplete);
+// @flow
+export const completedOnly = (todos: Array<{ isComplete: boolean }>) =>
+  todos.filter(todo => todo.isComplete);
 
-export const pendingOnly = todos => todos.filter(todo => !todo.isComplete);
+export const pendingOnly = (todos: Array<{ isComplete: boolean }>) =>
+  todos.filter(todo => !todo.isComplete);
 
-export const filterTodos = (todos, filterCriteria) => {
+export const filterTodos = (
+  todos: Array<{ isComplete: boolean }>,
+  filterCriteria: string
+) => {
   switch (filterCriteria) {
     case 'ALL':
       return todos;

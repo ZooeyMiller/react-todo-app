@@ -1,13 +1,20 @@
-export const getTodo = (todos, id) => todos.find(todo => todo.id === id);
+// @flow
 
-export const toggleChecked = todo => {
+export const getTodo = (todos: Array<{ id: number }>, id: number) =>
+  todos.find(todo => todo.id === id);
+
+export const toggleChecked = (todo: { isComplete: boolean }) => {
   return {
     ...todo,
     isComplete: !todo.isComplete,
   };
 };
 
-export const returnUpdatedTodos = (todos, updatedTodo, oldTodo) => {
+export const returnUpdatedTodos = (
+  todos: Array<{}>,
+  updatedTodo: {},
+  oldTodo: {}
+) => {
   const todoIndex = todos.indexOf(oldTodo);
 
   return {

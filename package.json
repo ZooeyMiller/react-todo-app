@@ -21,6 +21,7 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
+    "flow-bin": "^0.57.3",
     "react-scripts": "1.0.7",
     "tape": "^4.7.0"
   },
@@ -29,6 +30,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "flow": "flow",
     "runServer": "nodemon server/server.js"
   }
 }
