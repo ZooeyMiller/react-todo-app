@@ -1,5 +1,11 @@
 import React from 'react';
-import { TodoItem } from '../styled-components/Todo.js';
+import {
+  TodoItem,
+  Button,
+  TodoText,
+  Input,
+  Checkbox,
+} from '../styled-components/Todo.js';
 
 export default props => {
   return (
@@ -7,21 +13,19 @@ export default props => {
       checked={props.checked}
       onClick={() => props.handleToggle(props.id)}
     >
-      <input
-        type="checkbox"
-        checked={props.checked}
-        onChange={() => props.handleToggle(props.id)}
-      />
+      <Checkbox onClick={() => props.handleToggle(props.id)}>
+        {props.checked ? '✔' : ''}
+      </Checkbox>
 
-      {props.name}
-      <button
+      <TodoText>{props.name}</TodoText>
+      <Button
         onClick={event => {
           event.stopPropagation();
           props.removeTodo(props.id);
         }}
       >
-        X
-      </button>
+        delete
+      </Button>
     </TodoItem>
   );
 };

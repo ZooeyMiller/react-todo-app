@@ -10,4 +10,5 @@ export const List = styled.ul`
   flex-grow: 0;
   height: ${props => props.screenHeight / 3 * 2}px;
   margin: 1.5em 0 0 0;
+  align-items: center;
 `;
