@@ -3,7 +3,6 @@ import {
   TodoItem,
   Button,
   TodoText,
-  Input,
   Checkbox,
 } from '../styled-components/Todo.js';
 

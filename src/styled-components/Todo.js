@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const TodoItem = styled.li`
   background-color: #ffffff;
   cursor: pointer;
-  transition: all 1s ease-in-out;
   margin: 0.5em;
   padding: 0.5em 1em 0.5em 1em;
   list-style: none;
@@ -15,6 +14,9 @@ export const TodoItem = styled.li`
   :first-of-type {
     margin: 1em 0.5em 0.5em 0.5em;
   }
+  @media (max-width: 600px) {
+    width: 70%;
+  }
 `;
 
 export const Button = styled.button`
@@ -25,6 +27,10 @@ export const Button = styled.button`
   border: none;
   border-radius: 5px;
   padding: 0.5em;
+
+  @media (max-width: 600px) {
+    font-size: 0.75em;
+  }
 `;
 
 export const Checkbox = styled.button`
@@ -37,6 +43,10 @@ export const Checkbox = styled.button`
   padding: 0.25em;
   border-style: solid;
   border-width: 1px;
+  @media (max-width: 600px) {
+    font-size: 1em;
+    width: ${props => (!props.checked ? '24px' : 'auto')};
+  }
 `;
 
 export const TodoText = styled.p`
@@ -44,6 +54,9 @@ export const TodoText = styled.p`
   font-size: 1em;
   width: 70%;
   margin: 1em;
-`;
 
-export const Input = styled.input``;
+  @media (max-width: 600px) {
+    font-size: 0.75em;
+    width: 53%;
+  }
+`;
