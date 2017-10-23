@@ -18,7 +18,6 @@ export default props => {
       >
         {props.checked ? '✔' : ''}
       </Checkbox>
-
       <TodoText>{props.name}</TodoText>
       <Button
         onClick={event => {
