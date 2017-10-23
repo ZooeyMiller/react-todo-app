@@ -23,3 +23,15 @@ export const TodoButton = styled.button`
   margin-bottom: 0.25em;
   padding: 0.25em 0 0.5em 0;
 `;
+
+export const InputLabel = styled.label`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+`;

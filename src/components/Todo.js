@@ -12,7 +12,10 @@ export default props => {
       checked={props.checked}
       onClick={() => props.handleToggle(props.id)}
     >
-      <Checkbox onClick={() => props.handleToggle(props.id)}>
+      <Checkbox
+        onClick={() => props.handleToggle(props.id)}
+        aria-label={`mark todo as ${props.checked ? 'pending' : 'complete'}`}
+      >
         {props.checked ? '✔' : ''}
       </Checkbox>
 
