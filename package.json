@@ -5,7 +5,7 @@
   "dependencies": {
     "env2": "^2.2.0",
     "hapi": "^16.3.0",
-    "inert": "^4.2.0",
+    "inert": "^4.2.1",
     "nodemon": "^1.11.0",
     "pg": "^6.2.3",
     "pg-escape": "^0.2.0",
@@ -26,11 +26,14 @@
     "tape": "^4.7.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "flow": "flow",
-    "runServer": "nodemon server/server.js"
-  }
+    "runServer": "nodemon ./server/server.js",
+    "devFrontEnd": "react-scripts start",
+    "heroku-postbuild": "npm install --only=dev && npm run build"
+  },
+  "proxy": "http://localhost:5000"
 }

@@ -4,9 +4,17 @@ const router = require('./router.js');
 
 const server = new hapi.Server();
 
-server.connection({ port: 5000, host: 'localhost' });
+server.connection({
+  port: process.env.PORT || 5000
+});
 
-server.route(router);
+server.register(require('inert'), err => {
+  if (err) {
+    throw err;
+  } else {
+    server.route(router);
+  }
+});
 
 server.start(err => {
   if (err) throw err;

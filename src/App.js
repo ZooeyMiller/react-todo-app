@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import TodoContainer from './components/TodoContainer';
 import NewTodo from './components/NewTodo.js';
 import Spinner from './components/Spinner.js';
@@ -8,53 +7,51 @@ import FilterButtons from './components/FilterButtons.js';
 import {
   getTodo,
   toggleChecked,
-  returnUpdatedTodos,
+  returnUpdatedTodos
 } from './utils/handleToggle';
 import { Container, Header, Title } from './styled-components/App.js';
-
-const serverUrl = 'http://localhost:5000';
 
 class App extends Component {
   state = {
     loading: true,
     currentTodo: '',
     screenHeight: window.innerHeight,
-    criteria: 'ALL',
+    criteria: 'ALL'
   };
 
   componentDidMount = () => {
-    fetch(`${serverUrl}/get-todos`)
+    fetch(`./get-todos`)
       .then(res => res.json())
       .then(json => {
         this.setState({
           todos: json.rows.map(todo => ({
             name: todo.name,
             id: todo.id,
-            isComplete: todo.checked,
+            isComplete: todo.checked
           })),
-          loading: false,
+          loading: false
         });
       })
       .catch(err => {
         console.log(err);
         this.setState({
-          error: 'something went wrong',
+          error: 'something went wrong'
         });
       });
     window.addEventListener('resize', () => {
       this.setState({
-        screenHeight: window.innerHeight,
+        screenHeight: window.innerHeight
       });
     });
   };
 
   handleError = errorMessage => {
     this.setState({
-      error: errorMessage,
+      error: errorMessage
     });
     setTimeout(() => {
       this.setState({
-        error: '',
+        error: ''
       });
     }, 3000);
   };
@@ -65,11 +62,11 @@ class App extends Component {
     if (todo) {
       const updatedTodo = toggleChecked(todo);
       const todoList = returnUpdatedTodos(todos, updatedTodo, todo);
-      fetch(`${serverUrl}/toggle-todo`, {
+      fetch(`./toggle-todo`, {
         method: 'POST',
         body: JSON.stringify({
-          todo: updatedTodo,
-        }),
+          todo: updatedTodo
+        })
       }).then(() => this.setState(todoList));
     } else {
       this.handleError('problem toggling todo');
@@ -78,25 +75,25 @@ class App extends Component {
 
   handleInputChange = event => {
     this.setState({
-      currentTodo: event.target.value,
+      currentTodo: event.target.value
     });
   };
 
   handleSubmit = event => {
     event.preventDefault();
     if (this.state.currentTodo !== '') {
-      fetch(`${serverUrl}/add-todo`, {
+      fetch(`./add-todo`, {
         method: 'POST',
         body: JSON.stringify({
-          todo: this.state.currentTodo,
-        }),
+          todo: this.state.currentTodo
+        })
       })
         .then(res => res.json())
         .then(json => {
           this.setState({
             todos: [...this.state.todos, json],
             currentTodo: '',
-            error: '',
+            error: ''
           });
         })
         .catch(() => this.handleError('problem submitting todo'));
@@ -107,23 +104,23 @@ class App extends Component {
 
   removeTodo = id => {
     const removedTodoIndex = this.state.todos.findIndex(todo => todo.id === id);
-    fetch(`${serverUrl}/delete-todo`, {
+    fetch(`./delete-todo`, {
       method: 'POST',
       body: JSON.stringify({
-        id,
-      }),
+        id
+      })
     });
     this.setState({
       todos: [
         ...this.state.todos.slice(0, removedTodoIndex),
-        ...this.state.todos.slice(removedTodoIndex + 1),
-      ],
+        ...this.state.todos.slice(removedTodoIndex + 1)
+      ]
     });
   };
 
   setFilter = criteria => {
     this.setState({
-      criteria,
+      criteria
     });
   };
 

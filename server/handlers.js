@@ -1,4 +1,4 @@
-const dbConnection = require('../database/db_connection.js');
+const dbConnection = require('./database/db_connection.js');
 const sqlString = require('sqlstring');
 
 const getTodos = (req, reply) => {
@@ -30,19 +30,18 @@ const addTodo = (req, reply) => {
       reply({
         id: row.id,
         name: row.name,
-        isComplete: row.checked,
+        isComplete: row.checked
       });
     }
   });
 };
 
 const toggleChecked = (req, reply) => {
-  const payload = JSON.parse(req.payload);
-  const todo = payload.todo;
+  const { todo: { isComplete, id } } = JSON.parse(req.payload);
+  const complete = isComplete ? 'TRUE' : 'FALSE';
   dbConnection.query(
-    `UPDATE todos SET checked = ${todo.isComplete
-      ? 'TRUE'
-      : 'FALSE'} WHERE id = '${todo.id}';`,
+    `UPDATE todos SET checked = $1 WHERE id = $2;`,
+    [complete, id],
     (err, res) => {
       if (err) {
         console.log(err);
@@ -54,9 +53,8 @@ const toggleChecked = (req, reply) => {
 };
 
 const deleteTodo = (req, reply) => {
-  const payload = JSON.parse(req.payload);
-  const id = payload.id;
-  dbConnection.query(`DELETE from todos WHERE id = '${id}'`, (err, res) => {
+  const { id } = JSON.parse(req.payload);
+  dbConnection.query(`DELETE from todos WHERE id = $1`, [id], (err, res) => {
     if (err) {
       console.log(err);
     } else {
@@ -69,5 +67,5 @@ module.exports = {
   getTodos,
   addTodo,
   toggleChecked,
-  deleteTodo,
+  deleteTodo
 };

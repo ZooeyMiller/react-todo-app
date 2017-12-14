@@ -5,20 +5,21 @@ require('env2')('./config.env');
   const env = require('env2');
   env('./config.env'); */
 
-if(!process.env.DB_URL) throw new Error('Enviroment variable DB_URL must be set');
+if (!process.env.DATABASE_URL)
+  throw new Error('Enviroment variable DATABASE_URL must be set');
 
-const params = url.parse(process.env.DB_URL);
+const params = url.parse(process.env.DATABASE_URL);
 const [username, password] = params.auth.split(':');
 
 const options = {
   host: params.hostname,
   port: params.port,
   database: params.pathname.split('/')[1],
-  max: process.env.DB_MAX_CONNECTIONS || 2,
+  max: process.env.DB_MAX_CONNECTIONS || 2
 };
 
 options.user = username;
 options.password = password;
-options.ssl = (options.host !== 'localhost');
+options.ssl = options.host !== 'localhost';
 
 module.exports = new Pool(options);
